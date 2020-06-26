@@ -7,7 +7,7 @@ const Selects = (props) => {
     selectInfoFrom,
     selectInfoTo,
     handleSearch,
-  } =props;
+  } = props;
   return (
     <div className="destinations" >
 
@@ -18,6 +18,7 @@ const Selects = (props) => {
         <option value="PRG">Prague</option>
         <option value="WAW">Warsaw</option>
       </select>
+      <br/>
 
       <select onChange={(e) => handleSelectChange(e, "to")} value={selectInfoTo}>
       <option>Select Destination</option>
@@ -27,6 +28,13 @@ const Selects = (props) => {
         <option value="MXP">Milano</option>
         <option value="VLC">Valencia</option>
       </select>
+      <br/><br/>
+
+      <label on>
+        <input type="checkbox" value="direct_flights"></input>
+        Direct flights only
+      </label>
+      <br/>
 
       <button onClick={handleSearch}>Search</button>
     </div>

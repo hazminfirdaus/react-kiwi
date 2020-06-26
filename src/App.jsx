@@ -4,28 +4,27 @@ import './App.css';
 import Api from "./components/Api";
 import Selects from "./components/Selects";
 
-
-
-
 /* ?flyFrom=PRG&to=VLC&dateFrom=27/06/2020&dateTo=27/07/2020&partner=picky&v=3&offset=0&limit=5' */
 
 const App = () => {
   const [ flights, setFlights ] = useState([]);
-  const [ selectInfoFrom, setSelectInfoFrom ] =useState("PRG")
-  const [ selectInfoTo, setSelectInfoTo ] =useState("VLC")
+  const [ selectInfoFrom, setSelectInfoFrom ] =useState("PRG");
+  const [ selectInfoTo, setSelectInfoTo ] =useState("VLC");
+  const [ directFlights, setDirectFlights ] =useState(0);
 
 
 
   const fetchData = async () => {
     const data = await Api (
       selectInfoFrom,
-      selectInfoTo
+      selectInfoTo,
+      directFlights
     );
     console.log(data.data);
     setFlights(data.data);
   }
 
-  const selectSearch = (e, targetSelect) => {
+  const handleSelectChange = (e, targetSelect) => {
     if (targetSelect === 'from') {
       setSelectInfoFrom(e.target.value);
     } else if(targetSelect === 'to') {
@@ -45,18 +44,15 @@ const App = () => {
 
   return(
 <div className="App">
-
-    
-    <p>hello</p>
-    
     
     <h2>Flights</h2>
-    Select: 
+    <p>Select:</p> 
     <Selects 
     handleSearch={handleSearch}
-    selectSearch={selectSearch}
+    handleSelectChange={handleSelectChange}
     />
     <hr/>
+    
     {flights.map((flight, index) => (
     <div key={index}>
       <p>Price: {flight.price} EUR</p>
@@ -68,14 +64,14 @@ const App = () => {
       <p>Arrival: {DateTime.fromMillis(flight.aTime * 1000).toFormat('hh:mm')}</p>
       
       {flight.availability.seats  ? (
-        <p>This flight is available: {flight.availability.seats}seats left</p>) : (
+        <p>This flight is available: {flight.availability.seats} seats left</p>) : (
           <p>This flight is not Available.</p>
         )}
         
       
       <br/><hr/>
     </div>))}
-    
+
     </div>
   )
 }
