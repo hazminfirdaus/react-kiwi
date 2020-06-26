@@ -26,6 +26,8 @@ const App = () => {
       <div key={index}>
         <p>{flight.flyFrom}</p>
         <p>{flight.flyTo}</p>
+
+
       </div>))};
     
     </div>
